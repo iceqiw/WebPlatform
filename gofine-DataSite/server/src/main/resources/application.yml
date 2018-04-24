@@ -1,6 +1,6 @@
 server:
   servlet:
-    context-path: /DataSite
+    context-path: /api/ds
   port: @port@
 
 

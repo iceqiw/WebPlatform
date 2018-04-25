@@ -1,0 +1,15 @@
+version: '3'
+services:
+  datasite:
+    image: cloud/datasite
+    networks:
+      - springcloud-overlay
+    ports:
+      - "8087:8087"
+    volumes:
+      - "/data/logs:/data/logs"
+
+networks:
+  springcloud-overlay:
+    external:
+      name: springcloud-overlay

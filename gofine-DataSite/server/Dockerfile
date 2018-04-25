@@ -4,7 +4,8 @@ FROM frolvlad/alpine-oraclejdk8:slim
 VOLUME /tmp
 
 RUN mkdir /data
+RUN mkdir /data/logs
 #将打包好的代码jar包添加到镜像内
 ADD  target/*.jar /data/app.jar
 #启动容器内的jar包
-ENTRYPOINT ["java","-jar","/data/app.jar"]
+ENTRYPOINT ["java -Djava.security.egd=file:/dev/./urandom","-jar","/data/app.jar"]

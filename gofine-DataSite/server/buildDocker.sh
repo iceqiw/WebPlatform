@@ -4,3 +4,5 @@ mvn clean install -Ptest
 
 echo "------------docker-----------install---------"
 docker build -t cloud/datasite -q .
+
+echo "------------docker-----------ok---------"

@@ -6,6 +6,6 @@ VOLUME /tmp
 RUN mkdir /data
 RUN mkdir /data/logs
 #将打包好的代码jar包添加到镜像内
-ADD  target/*.jar /data/app.jar
+ADD  server/target/*.jar /data/app.jar
 #启动容器内的jar包
 ENTRYPOINT ["java","-jar","/data/app.jar"]

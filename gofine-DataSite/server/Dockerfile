@@ -8,4 +8,4 @@ RUN mkdir /data/logs
 #将打包好的代码jar包添加到镜像内
 ADD  target/*.jar /data/app.jar
 #启动容器内的jar包
-ENTRYPOINT ["java -Djava.security.egd=file:/dev/./urandom","-jar","/data/app.jar"]
+ENTRYPOINT ["java","-jar","/data/app.jar"]

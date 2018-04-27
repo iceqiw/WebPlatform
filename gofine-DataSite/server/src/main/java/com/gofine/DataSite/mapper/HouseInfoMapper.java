@@ -12,11 +12,17 @@ public interface HouseInfoMapper {
   // sql语句 分页查询
   final String SELECTBYPAGE = "select * from house limit #{start}, #{size}";
 
-  final String INSERT = "INSERT INTO house (name,price,address,subway,acreage,floor,datetime,village,link,price_total) VALUES (#{name},#{price},#{address},#{subway},#{acreage},#{floor},#{datetime},#{village},#{link},#{price_total})";
+  final String INSERT = "INSERT INTO house (name,price,address,subway,acreage,floor,datetime,village,link,price_total,img) VALUES (#{name},#{price},#{address},#{subway},#{acreage},#{floor},#{datetime},#{village},#{link},#{price_total},#{img})";
+
+  final String COUNT = "select count(id) from house";
+
 
   @Insert(INSERT)
   void save(HouseInfo houseInfo);
 
   @Select(SELECTBYPAGE)
   List<HouseInfo> findByPage(@Param("start") int start, @Param("size") int size);
+
+  @Select(COUNT)
+  long count();
 }

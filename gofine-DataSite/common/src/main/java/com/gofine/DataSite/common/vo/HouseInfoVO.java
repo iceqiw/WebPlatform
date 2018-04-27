@@ -16,5 +16,6 @@ public class HouseInfoVO {
   private BigDecimal price;
   private BigDecimal priceTotal;
   private String datetime;
+  private String img;
 
 }

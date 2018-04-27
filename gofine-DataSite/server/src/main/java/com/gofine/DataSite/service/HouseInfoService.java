@@ -25,8 +25,21 @@ public class HouseInfoService {
   }
 
   public Page page(Page vo) {
-    List<HouseInfo> list = houseInfoMapper.findByPage(vo.getStart(), vo.getSize());
+    int start = (vo.getStart() - 1) * vo.getSize();
+    List<HouseInfo> list = houseInfoMapper.findByPage(start, vo.getSize());
     vo.setContext(list);
     return vo;
+  }
+
+  public Page page(int start, int size) {
+    Page page = new Page();
+    page.setSize(size);
+    page.setStart(start);
+    start = (start - 1) * size;
+    long total=houseInfoMapper.count();
+    List<HouseInfo> list = houseInfoMapper.findByPage(start, size);
+    page.setContext(list);
+    page.setTotal(total);
+    return page;
   }
 }

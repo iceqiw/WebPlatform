@@ -11,6 +11,8 @@ public class Page {
 
   int size;
 
+  long total;
+
   List context;
 
 }

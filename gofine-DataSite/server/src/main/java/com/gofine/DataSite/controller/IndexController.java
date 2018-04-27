@@ -8,6 +8,7 @@ import com.gofine.DataSite.common.vo.HouseInfoVO;
 import com.gofine.DataSite.service.HouseInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -42,5 +43,10 @@ public class IndexController implements IndexAPI {
   @Override
   public Page page(Page vo) {
     return houseInfoService.page(vo);
+  }
+
+  @Override
+  public Page page(@PathVariable("start") int start, @PathVariable("size") int size) {
+    return houseInfoService.page(start, size);
   }
 }

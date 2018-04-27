@@ -1,6 +1,7 @@
 package com.gofine.DataSite.mapper;
 
 import com.gofine.DataSite.common.model.HouseInfo;
+import java.math.BigDecimal;
 import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
@@ -25,4 +26,26 @@ public interface HouseInfoMapper {
 
   @Select(COUNT)
   long count();
+
+
+  @Select("select distinct village from house")
+  List<String> findVillage();
+
+  @Select("select avg(price) from house")
+  BigDecimal countAvgPrice();
+
+  @Select("select max(price) from house")
+  BigDecimal countMaxPrice();
+
+  @Select("select min(price) from house")
+  BigDecimal countMinPrice();
+
+  @Select("select avg(price_total) from house")
+  BigDecimal countAvgTotalPrice();
+
+  @Select("select max(price_total) from house")
+  BigDecimal countMaxTotalPrice();
+
+  @Select("select min(price_total) from house")
+  BigDecimal countMinTotalPrice();
 }

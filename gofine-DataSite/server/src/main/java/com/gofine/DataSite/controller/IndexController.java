@@ -6,6 +6,8 @@ import com.gofine.DataSite.common.mapstruct.HouseInfoStructer;
 import com.gofine.DataSite.common.model.HouseInfo;
 import com.gofine.DataSite.common.vo.HouseInfoVO;
 import com.gofine.DataSite.service.HouseInfoService;
+import java.util.List;
+import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,4 +51,16 @@ public class IndexController implements IndexAPI {
   public Page page(@PathVariable("start") int start, @PathVariable("size") int size) {
     return houseInfoService.page(start, size);
   }
+
+  @Override
+  public List<String> ListVillage() {
+    return houseInfoService.ListVillage();
+  }
+
+  @Override
+  public Map<String, Object> totalInfo() {
+    return houseInfoService.totalInfo();
+  }
+
+
 }

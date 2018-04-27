@@ -51,7 +51,7 @@ public class HouseInfoService {
 
   public Map<String, Object> totalInfo() {
     Map<String, Object> totalInfo = new HashMap<>();
-    totalInfo.put("avg", houseInfoMapper.countAvgPrice());
+    totalInfo.put("avg", houseInfoMapper.countAvgPrice().longValue());
     totalInfo.put("max", houseInfoMapper.countMaxPrice());
     totalInfo.put("min", houseInfoMapper.countMinPrice());
     totalInfo.put("total_avg", houseInfoMapper.countAvgTotalPrice().longValue());

@@ -44,6 +44,11 @@ public class IndexController implements IndexAPI {
   }
 
   @Override
+  public void delInfo(@PathVariable("id")Long id) {
+    houseInfoService.del(id);
+  }
+
+  @Override
   public Page page(Page vo) {
     return houseInfoService.page(vo);
   }

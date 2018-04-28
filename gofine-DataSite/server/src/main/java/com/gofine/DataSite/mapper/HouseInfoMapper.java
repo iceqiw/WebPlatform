@@ -4,6 +4,7 @@ import com.gofine.DataSite.common.model.HouseInfo;
 import com.gofine.DataSite.common.vo.RentVO;
 import java.math.BigDecimal;
 import java.util.List;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -53,4 +54,7 @@ public interface HouseInfoMapper {
 
   @Update("update house set rent=#{rent} where village=#{village}")
   void updateRent(RentVO vo);
+
+  @Delete("delete from house where id=#{id}")
+  void del(@Param("id") Long id);
 }

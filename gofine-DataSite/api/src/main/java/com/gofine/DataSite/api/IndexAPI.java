@@ -6,6 +6,7 @@ import com.gofine.DataSite.common.vo.HouseInfoVO;
 import com.gofine.DataSite.common.vo.RentVO;
 import java.util.List;
 import java.util.Map;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,9 @@ public interface IndexAPI {
 
   @PostMapping("/info")
   void info(HouseInfoVO vo);
+
+  @DeleteMapping("/info/{id}")
+  void delInfo(@PathVariable("id") Long id);
 
   @PostMapping("/rent")
   void rent(RentVO vo);

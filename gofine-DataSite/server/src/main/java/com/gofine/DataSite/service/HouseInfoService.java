@@ -64,4 +64,8 @@ public class HouseInfoService {
   public void updateRent(RentVO vo) {
     houseInfoMapper.updateRent(vo);
   }
+
+  public void del(Long id) {
+    houseInfoMapper.del(id);
+  }
 }

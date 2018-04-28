@@ -2,6 +2,7 @@ package com.gofine.DataSite.service;
 
 import com.gofine.DataSite.common.dto.Page;
 import com.gofine.DataSite.common.model.HouseInfo;
+import com.gofine.DataSite.common.vo.RentVO;
 import com.gofine.DataSite.mapper.HouseInfoMapper;
 import java.util.HashMap;
 import java.util.List;
@@ -58,5 +59,9 @@ public class HouseInfoService {
     totalInfo.put("total_max", houseInfoMapper.countMaxTotalPrice());
     totalInfo.put("total_min", houseInfoMapper.countMinTotalPrice());
     return totalInfo;
+  }
+
+  public void updateRent(RentVO vo) {
+    houseInfoMapper.updateRent(vo);
   }
 }

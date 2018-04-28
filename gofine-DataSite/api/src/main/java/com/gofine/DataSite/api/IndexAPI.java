@@ -3,6 +3,7 @@ package com.gofine.DataSite.api;
 
 import com.gofine.DataSite.common.dto.Page;
 import com.gofine.DataSite.common.vo.HouseInfoVO;
+import com.gofine.DataSite.common.vo.RentVO;
 import java.util.List;
 import java.util.Map;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,9 @@ public interface IndexAPI {
 
   @PostMapping("/info")
   void info(HouseInfoVO vo);
+
+  @PostMapping("/rent")
+  void rent(RentVO vo);
 
   @GetMapping("/page")
   Page page(Page vo);

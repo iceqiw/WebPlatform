@@ -1,11 +1,13 @@
 package com.gofine.DataSite.mapper;
 
 import com.gofine.DataSite.common.model.HouseInfo;
+import com.gofine.DataSite.common.vo.RentVO;
 import java.math.BigDecimal;
 import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 public interface HouseInfoMapper {
 
@@ -48,4 +50,7 @@ public interface HouseInfoMapper {
 
   @Select("select min(price_total) from house")
   BigDecimal countMinTotalPrice();
+
+  @Update("update house set rent=#{rent} where village=#{village}")
+  void updateRent(RentVO vo);
 }

@@ -5,6 +5,7 @@ import com.gofine.DataSite.common.dto.Page;
 import com.gofine.DataSite.common.mapstruct.HouseInfoStructer;
 import com.gofine.DataSite.common.model.HouseInfo;
 import com.gofine.DataSite.common.vo.HouseInfoVO;
+import com.gofine.DataSite.common.vo.RentVO;
 import com.gofine.DataSite.service.HouseInfoService;
 import java.util.List;
 import java.util.Map;
@@ -62,5 +63,8 @@ public class IndexController implements IndexAPI {
     return houseInfoService.totalInfo();
   }
 
-
+  @Override
+  public void rent(RentVO vo) {
+    houseInfoService.updateRent(vo);
+  }
 }

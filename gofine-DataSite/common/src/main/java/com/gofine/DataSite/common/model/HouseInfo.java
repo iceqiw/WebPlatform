@@ -20,5 +20,6 @@ public class HouseInfo {
   private BigDecimal price_total;
   private String decoration;
   private String img;
+  private String rent;
 
 }

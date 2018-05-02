@@ -12,6 +12,7 @@ import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -37,14 +38,14 @@ public class IndexController implements IndexAPI {
   }
 
   @Override
-  public void info(HouseInfoVO vo) {
+  public void info(@RequestBody HouseInfoVO vo) {
     HouseInfo houseInfo = houseInfoStructer.fromVo2Model(vo);
     houseInfoService.save(houseInfo);
     log.info(houseInfo.toString());
   }
 
   @Override
-  public void delInfo(@PathVariable("id")Long id) {
+  public void delInfo(@PathVariable("id") Long id) {
     houseInfoService.del(id);
   }
 

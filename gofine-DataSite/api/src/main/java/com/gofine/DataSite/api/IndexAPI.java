@@ -23,7 +23,7 @@ public interface IndexAPI {
   void info(HouseInfoVO vo);
 
   @DeleteMapping("/info/{id}")
-  void delInfo(@PathVariable("id") Long id);
+  void delInfo(Long id);
 
   @PostMapping("/rent")
   void rent(RentVO vo);
@@ -32,7 +32,7 @@ public interface IndexAPI {
   Page page(Page vo);
 
   @GetMapping("/page/{start}/{size}")
-  Page page(@PathVariable("start") int start, @PathVariable("size") int size);
+  Page page(int start, int size);
 
   @GetMapping("/villages")
   List<String> ListVillage();

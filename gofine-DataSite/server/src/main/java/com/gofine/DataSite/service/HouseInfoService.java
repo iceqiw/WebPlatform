@@ -68,4 +68,8 @@ public class HouseInfoService {
   public void del(Long id) {
     houseInfoMapper.del(id);
   }
+
+  public List<HouseInfo> all() {
+    return houseInfoMapper.all();
+  }
 }

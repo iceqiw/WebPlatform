@@ -55,6 +55,11 @@ public class IndexController implements IndexAPI {
   }
 
   @Override
+  public List<HouseInfo> all() {
+    return houseInfoService.all();
+  }
+
+  @Override
   public Page page(@PathVariable("start") int start, @PathVariable("size") int size) {
     return houseInfoService.page(start, size);
   }
@@ -70,7 +75,7 @@ public class IndexController implements IndexAPI {
   }
 
   @Override
-  public void rent(RentVO vo) {
+  public void rent(@RequestBody RentVO vo) {
     houseInfoService.updateRent(vo);
   }
 }

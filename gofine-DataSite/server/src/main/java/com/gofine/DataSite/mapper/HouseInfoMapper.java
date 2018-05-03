@@ -57,4 +57,7 @@ public interface HouseInfoMapper {
 
   @Delete("delete from house where id=#{id}")
   void del(@Param("id") Long id);
+
+  @Select("select * from house")
+  List<HouseInfo> all();
 }

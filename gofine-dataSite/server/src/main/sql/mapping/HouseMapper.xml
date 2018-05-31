@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gofine.dataSite.mapper.HouseMapper">
+  <resultMap id="BaseResultMap" type="com.gofine.dataSite.common.model.House">
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
+    <result column="price" jdbcType="DOUBLE" property="price"/>
+    <result column="address" jdbcType="VARCHAR" property="address"/>
+    <result column="acreage" jdbcType="DOUBLE" property="acreage"/>
+    <result column="floor" jdbcType="VARCHAR" property="floor"/>
+    <result column="datetime" jdbcType="VARCHAR" property="datetime"/>
+    <result column="village" jdbcType="VARCHAR" property="village"/>
+    <result column="link" jdbcType="VARCHAR" property="link"/>
+    <result column="price_total" jdbcType="DOUBLE" property="priceTotal"/>
+    <result column="img" jdbcType="VARCHAR" property="img"/>
+    <result column="rent" jdbcType="VARCHAR" property="rent"/>
+    <result column="subway" jdbcType="BINARY" property="subway"/>
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from house
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.gofine.dataSite.common.model.House">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into house (name, price, address,
+    acreage, floor, datetime,
+    village, link, price_total,
+    img, rent, subway)
+    values (#{name,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, #{address,jdbcType=VARCHAR},
+    #{acreage,jdbcType=DOUBLE}, #{floor,jdbcType=VARCHAR}, #{datetime,jdbcType=VARCHAR},
+    #{village,jdbcType=VARCHAR}, #{link,jdbcType=VARCHAR}, #{priceTotal,jdbcType=DOUBLE},
+    #{img,jdbcType=VARCHAR}, #{rent,jdbcType=VARCHAR}, #{subway,jdbcType=BINARY})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.gofine.dataSite.common.model.House">
+    update house
+    set name = #{name,jdbcType=VARCHAR},
+    price = #{price,jdbcType=DOUBLE},
+    address = #{address,jdbcType=VARCHAR},
+    acreage = #{acreage,jdbcType=DOUBLE},
+    floor = #{floor,jdbcType=VARCHAR},
+    datetime = #{datetime,jdbcType=VARCHAR},
+    village = #{village,jdbcType=VARCHAR},
+    link = #{link,jdbcType=VARCHAR},
+    price_total = #{priceTotal,jdbcType=DOUBLE},
+    img = #{img,jdbcType=VARCHAR},
+    rent = #{rent,jdbcType=VARCHAR},
+    subway = #{subway,jdbcType=BINARY}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, name, price, address, acreage, floor, datetime, village, link, price_total,
+    img, rent, subway
+    from house
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, name, price, address, acreage, floor, datetime, village, link, price_total,
+    img, rent, subway
+    from house
+  </select>
+
+  <sql id="selectbase" >
+    select id, name, price, address, acreage, floor, datetime, village, link, price_total,
+    img, rent, subway
+    from house
+  </sql>
+
+  <select id="findByPage" resultMap="BaseResultMap">
+    <include refid="selectbase"/>
+    limit #{start}, #{size}
+  </select>
+
+  <select id="countAll" resultType="java.lang.Long">
+    select count(*) from house
+  </select>
+
+  <update id="collectRent" parameterType="com.gofine.dataSite.common.vo.RentVO">
+    update house
+    set
+    rent = #{rent,jdbcType=VARCHAR}
+    where village = #{village,jdbcType=VARCHAR},
+  </update>
+
+</mapper>

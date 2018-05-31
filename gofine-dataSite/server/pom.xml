@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <artifactId>gofine-dataSite-parent</artifactId>
+    <groupId>com.gofine</groupId>
+    <version>1.0.0</version>
+  </parent>
+
+  <artifactId>gofine-dataSite-server</artifactId>
+  <packaging>jar</packaging>
+
+  <name>gofine-dataSite-server</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <!--  MyBatis Generator  -->
+    <!--  Java接口和实体类  -->
+    <targetJavaProject>${basedir}/src/main/java</targetJavaProject>
+    <targetMapperPackage>com.gofine.dataSite.mapper</targetMapperPackage>
+    <targetModelPackage>com.gofine.dataSite.common.model</targetModelPackage>
+    <!--  XML生成路径  -->
+    <targetResourcesProject>${basedir}/src/main/sql</targetResourcesProject>
+    <targetXMLPackage>mapping</targetXMLPackage>
+    <mysql.version>5.1.45</mysql.version>
+
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.gofine</groupId>
+      <artifactId>gofine-dataSite-api</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-cache</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-redis</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mybatis.spring.boot</groupId>
+      <artifactId>mybatis-spring-boot-starter</artifactId>
+      <version>1.3.2</version>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <profiles>
+    <profile>
+      <!-- 本地环境 -->
+      <id>local</id>
+      <properties>
+        <environment>local</environment><!-- 节点名字environment是自己随意取的 -->
+      </properties>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+    </profile>
+
+    <profile>
+      <!-- 开发环境 -->
+      <id>dev</id>
+      <properties>
+        <environment>dev</environment><!-- 节点名字environment是自己随意取的 -->
+      </properties>
+    </profile>
+
+    <profile>
+      <!-- 测试环境 -->
+      <id>test</id>
+      <properties>
+        <environment>test</environment><!-- 节点名字environment是自己随意取的 -->
+      </properties>
+    </profile>
+
+    <profile>
+      <!-- 生产环境 -->
+      <id>prod</id>
+      <properties>
+        <environment>prod</environment>
+      </properties>
+    </profile>
+  </profiles>
+
+
+  <build>
+    <finalName>server-${environment}</finalName>
+    <!-- 使用指定的filter进行过滤，在执行mvn命令的时候带上-Ppro就代表生产环境，就会加载生产环境的properties，-Pdev就代表开发环境（默认） -->
+    <filters>
+      <filter>envs/filter-${environment}-env.properties</filter>
+    </filters>
+    <!-- 配置需要被替换的资源文件路径, jdbc.properties -->
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <!-- 在某个resource中如果设置filtering为true，将会根据输入参数动态修改相关内容。 -->
+        <filtering>true</filtering>
+      </resource>
+      <resource>
+        <directory>src/main/sql</directory>
+        <!-- 在某个resource中如果设置filtering为true，将会根据输入参数动态修改相关内容。 -->
+        <filtering>false</filtering>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>com.spotify</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <version>1.0.0</version>
+        <configuration>
+          <imageName>cloud/gofine-dataSite</imageName>
+          <dockerDirectory>${project.basedir}/</dockerDirectory>
+          <resources>
+            <resource>
+              <directory>${project.build.directory}</directory>
+              <include>${project.build.finalName}.jar</include>
+            </resource>
+          </resources>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.mybatis.generator</groupId>
+        <artifactId>mybatis-generator-maven-plugin</artifactId>
+        <version>1.3.6</version>
+        <configuration>
+          <configurationFile>${basedir}/src/main/resources/generatorConfig.xml</configurationFile>
+          <overwrite>true</overwrite>
+          <verbose>true</verbose>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
